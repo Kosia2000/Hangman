@@ -40,17 +40,29 @@ class Game:
             self.array_with_letters.append(self.guess_word)
         print("Array_with_letters",self.array_with_letters)
         self.print_underscore()
+        print("Word and guess letter", word, self.guess_word)
+        #for i in range(len(self.guess_word)):
+            #print("Check it!",self.guess_word[i])
 
         
     def print_underscore(self):
         for word in range(1):
             print(len(self.guess_word)* " _")
+
+    def show_letter(self):
+        for i in range(len(self.guess_word)):
+            if self.user1.letter == self.guess_word[i]:
+                print(self.user1.letter)
+            else:
+                print(" _")
+
     
     def check_letters(self):            
         print("Guess word:", self.guess_word)
-        self.print_underscore()
+        #self.print_underscore()
         if self.user1.letter in self.guess_word:
             print("YES")
+            self.show_letter()
             self.user1.attempt()
             print("Used letters:", self.user1.used_letters)
             print("Mistakes:", self.user1.mistakes)
