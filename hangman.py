@@ -6,6 +6,7 @@ class User:
         self.name = ""  
         self.mistakes = 0
         self.used_letters = []
+        self.turns = 0
     
     def introduce(self):
         self.name = input("Enter name:\n")
@@ -23,6 +24,11 @@ class User:
         else:
             self.used_letters.append(self.letter)
 
+    def turn(self):
+        if(self.letter):
+            self.turns +=1
+            print("You moved",self.turns) 
+
 
 class Game:
     
@@ -31,24 +37,17 @@ class Game:
     
     def random_word(self):
         #choose random word from list, cut it on letters
-        self.array_with_letters = []
         list_of_words = ["Kosia", "KInka", "KMacieg", "KSiemeg"]
         self.string = random.choice(list_of_words)
         #print("String = ", self.string)
         for word in range(1):
             self.guess_word = list(self.string)
-            self.array_with_letters.append(self.guess_word)
-        print("Array_with_letters",self.array_with_letters)
         self.print_underscore()
-        print("Word and guess letter", word, self.guess_word)
-        #for i in range(len(self.guess_word)):
-            #print("Check it!",self.guess_word[i])
+        print("Guess letter", self.guess_word)
 
-        
     def print_underscore(self):
-        for word in range(1):
-            print(len(self.guess_word)* " _")
-
+       print(len(self.guess_word)* " _")
+        
     def show_letter(self):
         for i in range(len(self.guess_word)):
             if self.user1.letter == self.guess_word[i]:
@@ -56,22 +55,28 @@ class Game:
             else:
                 print(" _")
 
+    def end_program(self):
+        print("That's end!")
+        sys.exit()
     
     def check_letters(self):            
         print("Guess word:", self.guess_word)
-        #self.print_underscore()
+        self.print_underscore()
+
         if self.user1.letter in self.guess_word:
             print("YES")
             self.show_letter()
             self.user1.attempt()
             print("Used letters:", self.user1.used_letters)
             print("Mistakes:", self.user1.mistakes)
+            self.user1.turn()
         else:
             print("NO")
             self.user1.add_mistake()
             self.user1.attempt()
             print("Used letters:", self.user1.used_letters)
             print("Mistakes:", self.user1.mistakes)
+            self.user1.turn()
             
 
         
