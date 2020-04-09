@@ -33,13 +33,11 @@ class User:
         else:
             self.used_letters.add(self.letter)
 
-        if self.letter not in self.letter_guessed:
-            self.letter_guessed.add(self.letter)
-
     def turn(self):
         if(self.letter):
             self.turns +=1
             #print("You moved",self.turns) 
+
 
 class Game:
     
@@ -57,12 +55,14 @@ class Game:
 
     def print_underscore(self):
         print(len(self.guess_word)* " _")
-        
-            
 
     def end_program(self):
         print("That's end!")
         sys.exit()
+
+    def check_letter(self):
+        if (self.user1.letter not in self.user1.letter_guessed) and (self.user1.letter in self.guess_word):
+            self.user1.letter_guessed.add(self.user1.letter)
 
     def show_letters(self):
         for char in self.guess_word:
@@ -77,7 +77,8 @@ class Game:
         if self.user1.letter in self.guess_word:
             print("YES")
             self.user1.attempt()
-            self.show_letter()
+            self.check_letter()
+            self.show_letters()
             #print("Used letters:", self.user1.used_letters)
             #print("Mistakes:", self.user1.mistakes)
             self.user1.turn()
@@ -85,7 +86,8 @@ class Game:
             print("NO")
             self.user1.add_mistake()
             self.user1.attempt()
-            self.show_letter()
+            self.check_letter()
+            self.show_letters()
             #print("Used letters:", self.user1.used_letters)
             #print("Mistakes:", self.user1.mistakes)
             self.user1.turn()
