@@ -8,7 +8,7 @@ class User:
         self.name = ""  
         self.mistakes = 0
         self.used_letters = []
-        self.letter_guessed = []
+        self.letter_guessed = set()
         self.turns = 0
         self.wrong_answer = 0
     
@@ -32,6 +32,9 @@ class User:
             print("You have already used this letter!")
         else:
             self.used_letters.append(self.letter)
+
+        if self.letter not in self.letter_guessed:
+            self.letter_guessed.add(self.letter)
 
     def turn(self):
         if(self.letter):
@@ -61,34 +64,28 @@ class Game:
         print("That's end!")
         sys.exit()
 
-    def check_letter(self):
-        for char in range(len(self.guess_word)):
-            if self.user1.letter == self.guess_word[char]:
-                self.user1.letter_guessed.append(self.user1.letter)
-                self.show_letter()
+    def show_letters(self):
+        for char in self.guess_word:
+            if char in self.user1.letter_guessed:
+                print(char)
             else:
-                print(" _")
+                print(' _')
 
-    def show_letter(self):
-        for char in self.user1.letter_guessed:
-            print(char)
-            
     def play_game(self):            
         print("Guess word:", self.guess_word)
        # self.print_underscore()
         if self.user1.letter in self.guess_word:
             print("YES")
             self.user1.attempt()
-            self.check_letter()
+            self.show_letter()
             #print("Used letters:", self.user1.used_letters)
             #print("Mistakes:", self.user1.mistakes)
-            #self.show_letter()
             self.user1.turn()
         else:
             print("NO")
             self.user1.add_mistake()
             self.user1.attempt()
-            self.check_letter()
+            self.show_letter()
             #print("Used letters:", self.user1.used_letters)
             #print("Mistakes:", self.user1.mistakes)
             self.user1.turn()
