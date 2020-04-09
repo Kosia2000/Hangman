@@ -7,7 +7,7 @@ class User:
     def __init__(self):
         self.name = ""  
         self.mistakes = 0
-        self.used_letters = []
+        self.used_letters = set()
         self.letter_guessed = set()
         self.turns = 0
         self.wrong_answer = 0
@@ -31,7 +31,7 @@ class User:
         elif self.letter in self.used_letters:
             print("You have already used this letter!")
         else:
-            self.used_letters.append(self.letter)
+            self.used_letters.add(self.letter)
 
         if self.letter not in self.letter_guessed:
             self.letter_guessed.add(self.letter)
