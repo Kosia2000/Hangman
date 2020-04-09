@@ -8,6 +8,6 @@ user1.introduce()
 game.random_word()
 
 
-for i in range(11):
+for i in range(3):
     user1.choose_letter()
-    game.check_letters()
+    game.play_game()
