@@ -10,7 +10,7 @@ class User:
         self.used_letters = set()
         self.letter_guessed = set()
         self.turns = 0
-        self.wrong_answer = 0
+        #self.wrong_answer = 0
     
     def introduce(self):
         self.name = input("Enter name:\n")
@@ -36,7 +36,6 @@ class User:
     def turn(self):
         if(self.letter):
             self.turns +=1
-            #print("You moved",self.turns) 
 
 
 class Game:
@@ -45,7 +44,7 @@ class Game:
         self.user1 = user1
     
     def random_word(self):
-        list_of_words = ["KOSIA", "KINKA", "KMACIEG", "KSIEMEG"]
+        list_of_words = ["apple", "banana", "raspberry", "coconut"]
         self.string = random.choice(list_of_words)
         for word in range(1):
             self.guess_word = list(self.string.lower())
@@ -55,10 +54,6 @@ class Game:
 
     def print_underscore(self):
         print(len(self.guess_word)* " _")
-
-    def end_program(self):
-        print("That's end!")
-        sys.exit()
 
     def check_letter(self):
         if (self.user1.letter not in self.user1.letter_guessed) and (self.user1.letter in self.guess_word):
@@ -71,16 +66,90 @@ class Game:
             else:
                 print(' _')
 
+    def print_hangman(self):
+        if self.user1.mistakes == 1:
+            print("_____")
+
+        elif self.user1.mistakes == 2:
+            print("  |  ")
+            print("  |  ")
+            print("_____")
+
+        elif self.user1.mistakes == 3:
+            print("  |  ")
+            print("  |  ")
+            print("  |  ")
+            print("  |  ")
+            print("_____")
+
+        elif self.user1.mistakes == 4:
+            print("   _____")
+            print("  |    |")
+            print("  |  ")
+            print("  |  ")
+            print("  |  ")
+            print("_____")  
+
+        elif self.user1.mistakes == 5:
+            print("   _____")
+            print("  |    |")
+            print("  |    O")
+            print("  |  ")
+            print("  |  ")
+            print("_____") 
+
+        elif self.user1.mistakes == 6:
+            print("   _____")
+            print("  |    |")
+            print("  |    O")
+            print("  |    |")
+            print("  |  ")
+            print("_____")
+
+        elif self.user1.mistakes == 7:
+            print("   _____")
+            print("  |    |")
+            print("  |    O")
+            print("  |   /|")
+            print("  |  ")
+            print("_____")
+
+        elif self.user1.mistakes == 8:
+            print("   _____ ")
+            print("  |    | ")
+            print("  |    O ")
+            print("  |   /|\ ")
+            print("  |  ")
+            print("_____")
+
+        elif self.user1.mistakes == 9:
+            print("   _____")
+            print("  |    | ")
+            print("  |    O ")
+            print("  |   /|\ ")
+            print("  |   /  ")
+            print("_____")
+
+        elif self.user1.mistakes == 10:
+            print("   _____")
+            print("  |    | ")
+            print("  |    O ")
+            print("  |   /|\ ")
+            print("  |   / \ ")
+            print("_____")
+
+    def loose(self):
+        if self.user1.mistakes == 10:
+            print("That's end. You loose :(")
+            print("See you next time!")
+            quit()
+
     def play_game(self):            
-        print("Guess word:", self.guess_word)
-       # self.print_underscore()
         if self.user1.letter in self.guess_word:
             print("YES")
             self.user1.attempt()
             self.check_letter()
             self.show_letters()
-            #print("Used letters:", self.user1.used_letters)
-            #print("Mistakes:", self.user1.mistakes)
             self.user1.turn()
         else:
             print("NO")
@@ -88,6 +157,7 @@ class Game:
             self.user1.attempt()
             self.check_letter()
             self.show_letters()
-            #print("Used letters:", self.user1.used_letters)
-            #print("Mistakes:", self.user1.mistakes)
+            self.print_hangman()
+            print("Mistakes:", self.user1.mistakes)
             self.user1.turn()
+            self.loose()
