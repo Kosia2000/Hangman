@@ -1,7 +1,6 @@
 import random, sys
 from os import system
 
-
 class User:
     
     def __init__(self):
@@ -35,7 +34,6 @@ class User:
         if(self.letter):
             self.turns +=1
 
-
 class Game:
     
     def __init__(self, user1):
@@ -44,11 +42,11 @@ class Game:
     def random_word(self):
         list_of_words = ["apple", "banana", "raspberry", "strawberry", "cherry", "lemon", "currant", "gooseberry", "papaya", "grapes"]
         self.string = random.choice(list_of_words)
-        for word in range(1):
+        word = 1
+        while(word):
             self.guess_word = list(self.string.lower())
-
+            word = 0
         self.print_underscore()
-        print("Guess letter", self.guess_word)
 
     def print_underscore(self):
         print(len(self.guess_word)* " _")
@@ -63,6 +61,23 @@ class Game:
                 print(char)
             else:
                 print(' _')
+
+    def loose(self):
+        if self.user1.mistakes == 10:
+            print("That's end. You loose :(")
+            print("See you next time!")
+            quit()
+
+    def win(self):
+        sum = 0
+        for char in self.guess_word:
+            if char in self.user1.letter_guessed:
+                sum += 1
+            else:
+                sum += 0
+        if sum == len(self.guess_word):
+            print("You won!\nCongratulations!")
+            quit()
 
     def print_hangman(self):
         if self.user1.mistakes == 1:
@@ -116,7 +131,7 @@ class Game:
             print("   _____ ")
             print("  |    | ")
             print("  |    O ")
-            print("  |   /|\ ")
+            print("  |   /|\\ ")
             print("  |  ")
             print("_____")
 
@@ -124,7 +139,7 @@ class Game:
             print("   _____")
             print("  |    | ")
             print("  |    O ")
-            print("  |   /|\ ")
+            print("  |   /|\\ ")
             print("  |   /  ")
             print("_____")
 
@@ -132,26 +147,9 @@ class Game:
             print("   _____")
             print("  |    | ")
             print("  |    O ")
-            print("  |   /|\ ")
-            print("  |   / \ ")
+            print("  |   /|\\ ")
+            print("  |   / \\ ")
             print("_____")
-
-    def loose(self):
-        if self.user1.mistakes == 10:
-            print("That's end. You loose :(")
-            print("See you next time!")
-            quit()
-
-    def win(self):
-        sum = 0
-        for char in self.guess_word:
-            if char in self.user1.letter_guessed:
-                sum += 1
-            else:
-                sum += 0
-        if sum == len(self.guess_word):
-            print("You won!\nCongratulations!")
-            quit()
 
     def play_game(self):            
         if self.user1.letter in self.guess_word:

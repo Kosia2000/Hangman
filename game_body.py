@@ -2,14 +2,13 @@ from hangman import User
 from hangman import Game
 from os import system
 
-
 print("Nice to meet you! Welcome to Hangman!")
 print("First some rules:")
 print("1. You can input ONLY one letter per round")
 print("2. You've got 10 chances")
-print("3. Category is fruit name")
-
+print("3. Category is fruit name\n")
 print("If You are ready to play press y [YES]")
+
 start = input()
 system('clear')
 
@@ -24,4 +23,3 @@ if start == 'y':
         game.play_game()
 else:
     print("See you next time!")
-
