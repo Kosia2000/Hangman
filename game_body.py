@@ -5,19 +5,21 @@ from os import system
 
 print("Nice to meet you! Welcome to Hangman!")
 print("First some rules:")
-print("You've got 20 chances")
+print("1. You can input ONLY one letter per round")
+print("2. You've got 10 chances")
+print("3. Category is fruit name")
 
-print("If you want to start game press y [YES]")
-y = input()
+print("If You are ready to play press y [YES]")
+start = input()
 system('clear')
 
-if y == 'y':
+if start == 'y':
     user1 = User()
     game = Game(user1)
     user1.introduce()
     game.random_word()
 
-    for i in range(11):
+    while True:
         user1.choose_letter()
         game.play_game()
 else:

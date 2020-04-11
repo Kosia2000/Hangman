@@ -1,5 +1,5 @@
 import random, sys
-from collections import Counter
+from os import system
 
 
 class User:
@@ -10,7 +10,6 @@ class User:
         self.used_letters = set()
         self.letter_guessed = set()
         self.turns = 0
-        #self.wrong_answer = 0
     
     def introduce(self):
         self.name = input("Enter name:\n")
@@ -21,7 +20,6 @@ class User:
     def choose_letter(self):
         print(self.name, "enter letter:")
         self.letter = input()
-        #self.attempt()
 
     def attempt(self):
         if not self.letter.isalpha():
@@ -44,7 +42,7 @@ class Game:
         self.user1 = user1
     
     def random_word(self):
-        list_of_words = ["apple", "banana", "raspberry", "coconut"]
+        list_of_words = ["apple", "banana", "raspberry", "strawberry", "cherry", "lemon", "currant", "gooseberry", "papaya", "grapes"]
         self.string = random.choice(list_of_words)
         for word in range(1):
             self.guess_word = list(self.string.lower())
@@ -144,15 +142,27 @@ class Game:
             print("See you next time!")
             quit()
 
+    def win(self):
+        sum = 0
+        for char in self.guess_word:
+            if char in self.user1.letter_guessed:
+                sum += 1
+            else:
+                sum += 0
+        if sum == len(self.guess_word):
+            print("You won!\nCongratulations!")
+            quit()
+
     def play_game(self):            
         if self.user1.letter in self.guess_word:
-            print("YES")
+            print("Yes!")
             self.user1.attempt()
             self.check_letter()
             self.show_letters()
             self.user1.turn()
+            self.win()
         else:
-            print("NO")
+            print("No")
             self.user1.add_mistake()
             self.user1.attempt()
             self.check_letter()
