@@ -1,16 +1,18 @@
-import random, sys
+import random
+import sys
 from os import system
 import curses
 
+
 class User:
-    
+
     def __init__(self):
-        self.name = ""  
+        self.name = ""
         self.mistakes = 0
         self.used_letters = set()
         self.letter_guessed = set()
         self.turns = 0
-    
+
     def introduce(self):
         self.name = input("Enter name:\n")
 
@@ -33,15 +35,16 @@ class User:
 
     def turn(self):
         if(self.letter):
-            self.turns +=1
+            self.turns += 1
+
 
 class Game:
 
     def __init__(self, user1):
         self.user1 = user1
-    
+
     def random_word(self):
-        list_of_words = ["apple", "banana", "raspberry", "strawberry", "cherry", 
+        list_of_words = ["apple", "banana", "raspberry", "strawberry", "cherry",
                          "lemon", "currant", "gooseberry", "papaya", "grapes"]
         self.string = random.choice(list_of_words)
         word = 1
@@ -51,7 +54,7 @@ class Game:
         self.print_underscore()
 
     def print_underscore(self):
-        print(len(self.guess_word)* " _")
+        print(len(self.guess_word) * " _")
 
     def check_letter(self):
         if (self.user1.letter not in self.user1.letter_guessed) and (self.user1.letter in self.guess_word):
@@ -62,7 +65,7 @@ class Game:
             if char in self.user1.letter_guessed:
                 print(char, end='')
             else:
-                print(' _',end='')
+                print(' _', end='')
 
     def lose(self):
         if self.user1.mistakes == 10:
@@ -107,7 +110,7 @@ class Game:
             print("  |  ")
             print("  |  ")
             print("  |  ")
-            print("_____")  
+            print("_____")
 
         elif self.user1.mistakes == 5:
             print("\n")
@@ -116,7 +119,7 @@ class Game:
             print("  |    O")
             print("  |  ")
             print("  |  ")
-            print("_____") 
+            print("_____")
 
         elif self.user1.mistakes == 6:
             print("\n")
@@ -163,7 +166,7 @@ class Game:
             print("  |   / \\ ")
             print("_____")
 
-    def play_game(self):            
+    def play_game(self):
         if self.user1.letter in self.guess_word:
             print("Yes!")
             self.check_letter()
@@ -171,7 +174,7 @@ class Game:
             self.user1.turn()
             self.user1.attempt()
             self.print_hangman()
-            print("\nUsed letters:",self.user1.used_letters)
+            print("\nUsed letters:", self.user1.used_letters)
             self.win()
         else:
             print("No")
@@ -181,6 +184,6 @@ class Game:
             self.user1.turn()
             self.print_hangman()
             self.user1.attempt()
-            print("\nUsed letters:",self.user1.used_letters)
+            print("\nUsed letters:", self.user1.used_letters)
             print("Mistakes:", self.user1.mistakes)
             self.lose()
